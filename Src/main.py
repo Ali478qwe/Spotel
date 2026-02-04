@@ -1,13 +1,13 @@
-from telethon import TelegramClient,events
-from config import *
-# import yt_dlp
+from telegram import Update
+from telegram.ext import ApplicationBuilder , CommandHandler , ContextTypes
+from config import BOT_TOKEN
+
+async def start(update : Update,context : ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("Hi Im Spotel Send me a link to start")
+
+bot = ApplicationBuilder().token(BOT_TOKEN).build()
 
 
-bot = TelegramClient('Spotel',api_id=api_id,api_hash=api_hash).start(bot_token=bot_token)
+bot.add_handler(CommandHandler("start",start))
 
-@bot.on(events.NewMessage(pattern='/start'))
-async def start(events):
-    await events.respond('Hi Im Spotel Lets Start send link')
-
-bot.run_until_disconnected()
-
+bot.run_polling()
