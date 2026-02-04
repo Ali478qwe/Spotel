@@ -22,7 +22,7 @@ def find_link(text):
     return link.strip()
 
 
-async def func(update : Update,context : ContextTypes.DEFAULT_TYPE):
+async def process_link(update : Update,context : ContextTypes.DEFAULT_TYPE):
     user_id = update.message.from_user.id
     message = update.message
     text = message.text
@@ -41,7 +41,7 @@ bot = ApplicationBuilder().token(BOT_TOKEN).build()
 
 def main():
     bot.add_handler(CommandHandler("start",start))
-    bot.add_handler(MessageHandler(filters.TEXT,))
+    bot.add_handler(MessageHandler(filters.TEXT,process_link))
     bot.run_polling()
 
 if __name__ == "__main__":
