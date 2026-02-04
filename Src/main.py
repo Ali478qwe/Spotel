@@ -4,7 +4,7 @@ from telegram.ext import ApplicationBuilder , CommandHandler , ContextTypes
 from config import BOT_TOKEN
 
 async def start(update : Update,context : ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Hi Im Spotel Send me a link to start")
+    await update.message.reply_text("is here")
 
 bot = ApplicationBuilder().token(BOT_TOKEN).build()
 
