@@ -1,2 +1,1 @@
-Telethon==1.42.0
-yt-dlp==2026.1.31
+python-telegram-bot==22.6
