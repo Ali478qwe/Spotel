@@ -3,36 +3,29 @@ from telegram import Update
 from telegram.ext import (ApplicationBuilder , CommandHandler , ContextTypes
                            , MessageHandler , filters) 
 from config import BOT_TOKEN
+from link_finder import *
 import re
+
 
 async def start(update : Update,context : ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Hi Im Spotel Send me a link to start")
 
-def find_link(text):
-    if not text:
-        return False
-    
-    links = re.findall(r"https?://\S+",text)
-
-    if len(links) != 1:
-        return -1
-    
-    link = links[0]
-
-    return link.strip()
 
 
 async def process_link(update : Update,context : ContextTypes.DEFAULT_TYPE):
-    user_id = update.message.from_user.id
     message = update.message
     text = message.text
+    user_id = message.from_user.id
     result = find_link(text)
-    if result == -1:
+    if result == link_t.MoreOneLink:
         await message.reply_text("just sent one link🔗")
-    elif result.isalpha():
-        await message.reply_text(f"you send link?\n{user_id}✔\n{result}")
-    else:
+    elif result == link_t.Null:
         await message.reply_text("This link wasnt recognized❌")
+    elif result == link_t.LinkNotfound:
+        await message.reply_text("link not found🗿")
+    else:
+        await message.reply_text(f"you send link?\n{user_id}✔\n{result}")
+
 
     
 
